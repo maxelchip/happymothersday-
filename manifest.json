@@ -3,10 +3,9 @@
     "name": "Happy_Mother's_Day!",
     "version": "1.0",
     "permissions": [
-      "tabs",
-      "activeTab"
+      "tabs"
     ],
-    "browser_action": {
+    "action": {
       "default_popup": "popup.html"
     },
     "content_scripts": [
@@ -15,8 +14,16 @@
           "js": ["script.js"]
         }
       ],
-      "web_accessible_resources": [
-        "popup.html"
-      ]
+    "web_accessible_resources": [
+        {
+            "resources": [
+              "popup.html"
+            ],
+            "matches": [
+              "http://*/*",
+              "https://*/*"
+            ]
+        }
+    ]
   }
   
