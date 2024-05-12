@@ -1,18 +1,21 @@
-// content.js
+// script.js
 
 // Function to update tab title
-function updateTabTitle(tabId, newTitle) {
-    chrome.tabs.executeScript(tabId, {
-      code: 'document.title = "' + newTitle + '";'
+async function updateTabTitle(tabId, newTitle) {
+    await chrome.scripting.executeScript({
+      target: {tabId: tabId},
+      func: (newTitle) => {
+        document.title = newTitle;
+      },
+      args: [newTitle]
     });
   }
   
   // Function to change title of all tabs
-  function changeTitleOfAllTabs(newTitle) {
-    chrome.tabs.query({}, function(tabs) {
-      tabs.forEach(function(tab) {
-        updateTabTitle(tab.id, newTitle);
-      });
+  async function changeTitleOfAllTabs(newTitle) {
+    const tabs = await chrome.tabs.query({});
+    tabs.forEach(tab => {
+      updateTabTitle(tab.id, newTitle);
     });
   }
   
