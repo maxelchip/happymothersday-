@@ -29,33 +29,19 @@ document.addEventListener('DOMContentLoaded', function() {
 // content.js
 
 // Function to update tab title
-async function updateTabTitle(tabId, newTitle) {
-    await chrome.scripting.executeScript({
-      target: {tabId: tabId},
-      func: (newTitle) => {
-        document.title = newTitle;
-      },
-      args: [newTitle]
-    });
+function updateTabTitle(newTitle) {
+    document.title = newTitle;
   }
   
-  // Function to change title of all tabs
-  async function changeTitleOfAllTabs(newTitle) {
-    const tabs = await chrome.tabs.query({});
-    tabs.forEach(tab => {
-      updateTabTitle(tab.id, newTitle);
-    });
-  }
-  
-  // Change title of all current tabs
-  changeTitleOfAllTabs("Happy Mother's Day!");
-  
-  // Listen for tab updates and change their title
-  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-    if (changeInfo.status === 'complete') {
-      updateTabTitle(tabId, "Happy Mother's Day!");
+  // Message listener to update title
+  chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.action === "updateTitle") {
+      updateTabTitle(message.title);
     }
   });
+  
+  // Update title of all current tabs
+  updateTabTitle("Happy Mother's Day!");
   
 
   

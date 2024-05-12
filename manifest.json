@@ -5,6 +5,9 @@
     "permissions": [
       "tabs"
     ],
+    "background": {
+        "service_worker": "background.js"
+    },
     "action": {
       "default_popup": "popup.html"
     },
@@ -21,7 +24,8 @@
             ],
             "matches": [
               "http://*/*",
-              "https://*/*"
+              "https://*/*",
+              "<all_urls>"
             ]
         }
     ]
