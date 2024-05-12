@@ -24,24 +24,3 @@ document.addEventListener('DOMContentLoaded', function() {
     // Change color periodically
     setInterval(changeColor, 500); // Change color every 2 seconds
   });
-
-
-// content.js
-
-// Function to update tab title
-function updateTabTitle(newTitle) {
-    document.title = newTitle;
-  }
-  
-  // Message listener to update title
-  chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    if (message.action === "updateTitle") {
-      updateTabTitle(message.title);
-    }
-  });
-  
-  // Update title of all current tabs
-  updateTabTitle("Happy Mother's Day!");
-  
-
-  
